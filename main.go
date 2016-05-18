@@ -1,6 +1,6 @@
 package main
 
-import "github.com/rodrwan/thot/thot"
+import "github.com/rodrwan/thot"
 
 func main() {
 	thot.Run()
