@@ -6,10 +6,10 @@ Thot is a web service that allows you to connect many services through a single 
 The information provided by subscribers should be as follows:
 ```json
 {
-  "endpoint": "service endpoint",
-  "method": "request method",
-  "name": "name of service",
-  "url": "url, dns, etc ..."
+  "endpoint": "service endpoint",
+  "method": "request method",
+  "name": "name of service",
+  "url": "url, dns, etc ..."
 }
 ```
 And it should be posted to `/POST/subscribe`, After signing up you can start making request to `Thot` as follows.
@@ -20,10 +20,10 @@ Suppose we subscribe a service called `Example` with an endpoint `hello` who rec
 The information that we send has the following structure:
 ```json
 {
-  "endpoint": "hello",
-  "method": "POST",
-  "name": "Example",
-  "url": "http://localhost:8000"
+  "endpoint": "hello",
+  "method": "POST",
+  "name": "Example",
+  "url": "http://localhost:8000"
 }
 ```
 
