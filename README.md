@@ -66,7 +66,7 @@ curl -X POST -H "Content-Type: application/json" \
 
 Then, send POST:
 ```sh
-curl -X POST -d {'name': 'rod'} http://localhost:8080/example/hello
+curl -X POST -d '{"name": "rod"}' http://localhost:8080/example/hello
 ```
 
 and this should be response with:
