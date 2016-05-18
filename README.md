@@ -61,7 +61,8 @@ Then, you can send POST to Thot as follow:
 First, subscribe:
 ```sh
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"endpoint": "hello","method": "POST","name": "Example","url": "http://localhost:8000"}' "http://localhost:8080/subscribe"
+  -d '{"endpoint": "hello","method": "POST","name": "Example","url": "http://localhost:8000"}' \ 
+  "http://localhost:8080/subscribe"
 ```
 
 Then, send POST:
