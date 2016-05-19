@@ -56,12 +56,12 @@ And in another terminal window run:
 $ go run server_example/server.go
 ```
 
-Then, you can send POST to Thot as follow:
+Then, you can send POST to `Thot` as follow:
 
 First, subscribe:
 ```sh
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"endpoint": "hello","method": "POST","name": "Example","url": "http://localhost:8000"}' \ 
+  -d '{"endpoint": "hello","method": "POST","name": "Example","url": "http://localhost:8000"}' \
   "http://localhost:8080/subscribe"
 ```
 
