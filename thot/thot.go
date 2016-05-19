@@ -8,10 +8,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
+	"gopkg.in/tylerb/graceful.v1"
 )
 
 var (
@@ -25,8 +27,6 @@ func subscribeHandler(router *mux.Router, subscribers Subscribers) func(http.Res
 		body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 		fatal(err)
 
-		w.WriteHeader(200)
-
 		if err := json.Unmarshal(body, &request); err != nil {
 			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
@@ -34,13 +34,15 @@ func subscribeHandler(router *mux.Router, subscribers Subscribers) func(http.Res
 			if err := json.NewEncoder(w).Encode(err); err != nil {
 				panic(err)
 			}
+			return
 		}
-
+		fmt.Println(request)
 		subscribers.HandleFunc(
 			router,
 			&request,
 			ForwardRequest(request),
 		)
+		w.WriteHeader(200)
 		log.Printf("New endpoint subscribed.\n\n")
 	}
 }
@@ -61,8 +63,14 @@ func Run() {
 
 	handler := cors.Default().Handler(router)
 	app.UseHandler(handler)
-	port := fmt.Sprintf(":%d", *port)
-	log.Printf("Running proxy server on %s\n", port)
-	err := http.ListenAndServe(port, app)
+
+	addr := fmt.Sprintf(":%d", *port)
+	s := &http.Server{
+		Addr:    addr,
+		Handler: app,
+	}
+
+	log.Printf("Running proxy server on %s\n", addr)
+	err := graceful.ListenAndServe(s, 3*time.Minute)
 	fatal(err)
 }

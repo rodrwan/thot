@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 )
@@ -13,12 +12,11 @@ import (
 func ForwardRequest(request Subscriber) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		uri := fmt.Sprintf("%s/%s", request.URL, request.Endpoint)
-		log.Println(r.Method + ": " + uri)
 
 		if r.Method == "POST" {
 			body, err := ioutil.ReadAll(r.Body)
 			fatal(err)
-
+			fmt.Println(r.Method, uri)
 			rr, err := http.NewRequest(r.Method, uri, bytes.NewBuffer(body))
 			fatal(err)
 

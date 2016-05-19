@@ -32,6 +32,7 @@ func (s Subscribers) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // HandleFunc ...
 func (s Subscribers) HandleFunc(mux *mux.Router, subs *Subscriber, handler http.HandlerFunc) {
 	key := fmt.Sprintf("/%s/%s", strings.ToLower(subs.Name), subs.Endpoint)
+	fmt.Printf("Service suscribed at: %s\n", key)
 	s[key] = subs
 	s[key].handler = handler
 	mux.HandleFunc(key, s.ServeHTTP).
